@@ -38,7 +38,7 @@ func init() {
 
 func update(screen *ebiten.Image) error {
 	jsEvent()
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouches()) > 0 {
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouchIDs()) > 0 {
 		if rand.Intn(2) == 1 {
 			rensyo ++
 			lose = false			
@@ -74,7 +74,7 @@ func update(screen *ebiten.Image) error {
 }
 
 func main() {
-	if err := ebiten.Run(update, screenWidth, screenHeight, 1, "一連勝"); err != nil {
+	if err := ebiten.Run(update, screenWidth, screenHeight, 1, "1連勝"); err != nil {
 		log.Fatal(err)
 	}
 }
