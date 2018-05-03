@@ -35,7 +35,9 @@ func init() {
 
 func update(screen *ebiten.Image) error {
 	screen.Fill(colornames.White)
-	// jsEvent()
+
+	jsEvent()
+	
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouches()) > 0 {
 		if rand.Intn(2) == 1 {
 			rensyo ++
@@ -53,7 +55,6 @@ func update(screen *ebiten.Image) error {
 
 	text.Draw(screen, "最高 " + strconv.Itoa(saikou), subFont, 134, 86, colornames.Black)
 	
-
 	text.Draw(screen, strconv.Itoa(rensyo), mainFont, 100, 200, colornames.Black)
 	text.Draw(screen, "連勝", mainFont, 160, 200, colornames.Black)
 
