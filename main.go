@@ -6,7 +6,6 @@ import (
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/inpututil"
 	"golang.org/x/image/font"
-	"github.com/ku20/Ebiten/localstorage"
 	
 	"strconv"
 	"math/rand"
