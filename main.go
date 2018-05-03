@@ -49,7 +49,7 @@ func update(screen *ebiten.Image) error {
 
 	jsEvent()
 	
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouches()) > 0 {
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouchIDs()) > 0 {
 		if rand.Intn(2) == 1 {
 			rensho ++
 			win = true
