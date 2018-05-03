@@ -6,6 +6,7 @@ import (
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/inpututil"
 	"golang.org/x/image/font"
+	"github.com/ku20298/localstorage"
 	
 	"strconv"
 	"math/rand"
@@ -18,7 +19,7 @@ const screenHeight = 640
 
 var mainFont font.Face
 var subFont font.Face
-var rensyo int
+var rensho int
 var win bool
 var winCount int
 var loseCount int
@@ -27,10 +28,20 @@ var saikou int
 func init() {
 	rand.Seed(time.Now().UnixNano())
 
+	if localstorage.GetItem("saikou") == "null" {
+		localstorage.SetItem("saikou", 0)
+	}
+
+	var err error
+	saikou, err = strconv.Atoi(localstorage.GetItem("saikou"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	mainFont = decodeFont(fontByte, 56)
 	subFont = decodeFont(fontByte, 32)
 
-	rensyo = 0
+	rensho = 0
 }
 
 func update(screen *ebiten.Image) error {
@@ -40,14 +51,15 @@ func update(screen *ebiten.Image) error {
 	
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) || len(inpututil.JustPressedTouches()) > 0 {
 		if rand.Intn(2) == 1 {
-			rensyo ++
+			rensho ++
 			win = true
 			winCount ++
 		}else {
-			if rensyo >= saikou {
-				saikou = rensyo
+			if rensho >= saikou {
+				saikou = rensho
+				localstorage.SetItem("saikou", saikou)
 			}
-			rensyo = 0
+			rensho = 0
 			win = false
 			loseCount ++
 		}
@@ -55,7 +67,7 @@ func update(screen *ebiten.Image) error {
 
 	text.Draw(screen, "最高 " + strconv.Itoa(saikou), subFont, 134, 86, colornames.Black)
 	
-	text.Draw(screen, strconv.Itoa(rensyo), mainFont, 100, 200, colornames.Black)
+	text.Draw(screen, strconv.Itoa(rensho), mainFont, 100, 200, colornames.Black)
 	text.Draw(screen, "連勝", mainFont, 160, 200, colornames.Black)
 
 	if winCount + loseCount == 0 {
